@@ -1,0 +1,11 @@
+---
+- name: run magicmirror container
+  docker_container:
+    name: magicmirror
+    image: "bastilimbach/docker-magicmirror:{{ magicmirror_version }}"
+    network_mode: host
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart_policy: unless-stopped
+    restart: "{{ restart_container | default(False) }}"
+    recreate: "{{ recreate_container | default(False) }}"

@@ -3,4 +3,9 @@
   hosts: magicmirror
   roles:
     - role: docker-ce
-#    - role: magicmirror
+      tags:
+        - docker
+    - role: magicmirror
+      tags:
+        - magicmirror
+        - mm

@@ -1,0 +1,3 @@
+---
+- name: include {{ action | default('start') }}.yml
+  include_tasks: "{{ action | default('start') }}.yml"

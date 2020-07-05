@@ -1,11 +1,8 @@
-all:
+magicmirror:
   hosts:
     pi-server:
-  children:
-    magicmirror:
-      hosts:
-        pi-server:
-          ansible_ssh_user: pi
-      vars:
-        ansible_python_interpreter: /usr/bin/python
-        proxy_env: {}
+      ansible_ssh_user: pi
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    proxy_env: {}
+    magicmirror_version: v2.12.0

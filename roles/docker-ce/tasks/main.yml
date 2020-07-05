@@ -40,3 +40,18 @@
 - name: check docker version
   debug:
     var=docker_version.stdout
+
+# To resolve warning
+# [WARNING]: Updating cache and auto-installing missing dependency: python-apt
+- name: install python-apt
+  environment: "{{ proxy_env }}"
+  become: yes
+  apt:
+    name: python-apt
+
+- name: install python docker SDK
+  environment: "{{ proxy_env }}"
+  become: yes
+  apt:
+    name: python-docker
+    state: present
