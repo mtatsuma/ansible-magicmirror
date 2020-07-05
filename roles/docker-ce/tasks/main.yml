@@ -1,0 +1,42 @@
+# Reference:
+# https://www.raspberrypi.org/blog/docker-comes-to-raspberry-pi/
+
+---
+- name: check installation
+  command: >-
+    docker -v
+  register: docker_version
+  failed_when: False
+  changed_when: False
+
+- name: install docker
+  block:
+    - name: download the official install script
+      environment: "{{ proxy_env }}"
+      get_url:
+        url: https://get.docker.com/
+        dest: /tmp/get_docker.sh
+        mode: '0777'
+
+    - name: run install script
+      environment: "{{ proxy_env }}"
+      become: yes
+      shell: /tmp/get_docker.sh
+  when: docker_version.rc != 0 or
+        update_docker | default(False) | bool
+
+- name: enable ansible user to use docker
+  become: yes
+  user:
+    name: "{{ ansible_ssh_user | default('pi') }}"
+    group: docker
+
+- name: check installation
+  command: >-
+    docker -v
+  register: docker_version
+  changed_when: False
+
+- name: check docker version
+  debug:
+    var=docker_version.stdout

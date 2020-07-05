@@ -1,0 +1,6 @@
+---
+- name: setup magic mirror server on pi
+  hosts: magicmirror
+  roles:
+    - role: docker-ce
+#    - role: magicmirror
