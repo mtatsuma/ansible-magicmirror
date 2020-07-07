@@ -1,0 +1,10 @@
+---
+- name: stop magicmirror container
+  docker_container:
+    name: "{{ magicmirror_container_name }}"
+    state: absent
+
+- name: remove config directory
+  file:
+    path: "{{ magicmirror_config_dir }}"
+    state: absent

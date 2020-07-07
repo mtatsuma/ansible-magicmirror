@@ -1,0 +1,24 @@
+---
+magicmirror_container_name: magicmirror
+magicmirror_config_dir: "/opt/configs/{{ magicmirror_container_name }}"
+
+magicmirror_listen_ip_address: 0.0.0.0
+magicmirror_listen_port: 8080
+magicmirror_basepath: "/"
+magicmirror_ip_allowlist: []
+magicmirror_enable_https: false
+magicmirror_https_key: ""
+magicmirror_https_cert: ""
+
+magicmirror_language: en
+magicmirror_loglevel:
+  - INFO
+  - LOG
+  - WARN
+  - ERROR
+magicmirror_time_format: 24
+magicmirror_units: metric
+
+magicmirror_module_config:
+  - module: clock
+    position: top_left

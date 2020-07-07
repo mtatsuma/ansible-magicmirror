@@ -1,11 +1,22 @@
 ---
+- name: make config directory
+  file:
+    path: "{{ magicmirror_config_dir }}"
+    state: directory
+
+- name: copy config file
+  template:
+    src: config.js.j2
+    dest: "{{ magicmirror_config_dir }}/config.js"
+
 - name: run magicmirror container
   docker_container:
-    name: magicmirror
+    name: "{{ magicmirror_container_name }}"
     image: "bastilimbach/docker-magicmirror:{{ magicmirror_version }}"
     network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - "{{ magicmirror_config_dir }}/:/opt/magic_mirror/config:ro"
     restart_policy: unless-stopped
     restart: "{{ restart_container | default(False) }}"
     recreate: "{{ recreate_container | default(False) }}"
