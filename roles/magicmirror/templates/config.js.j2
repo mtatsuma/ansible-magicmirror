@@ -1,20 +1,22 @@
- // Sample of config is available in
- // https://github.com/MichMich/MagicMirror/blob/master/config/config.js.sample
+/*
+Sample of config is available in
+https://github.com/MichMich/MagicMirror/blob/master/config/config.js.sample
+*/
 
 var config = {
-	address: "{{ magicmirror_listen_ip_address }}",
-	port: "{{ magicmirror_listen_port }}",
-	basePath: "{{ magicmirror_basepath }}",
-	ipWhitelist: {{ magicmirror_ip_allowlist | to_json }},
-	useHttps: {{ magicmirror_enable_https }},
-	httpsPrivateKey: {{ magicmirror_https_key }},
-	httpsCertificate: {{ magicmirror_https_cert }},
+    address: "{{ magicmirror_listen_ip_address }}",
+    port: "{{ magicmirror_listen_port }}",
+    basePath: "{{ magicmirror_basepath }}",
+    ipWhitelist: {{ magicmirror_ip_allowlist | to_json }},
+    useHttps: {{ magicmirror_enable_https }},
+    httpsPrivateKey: "{{ magicmirror_https_key }}",
+    httpsCertificate: "{{ magicmirror_https_cert }}",
 
-	language: "{{ magicmirror_language }}",
-	logLevel: {{ magicmirror_loglevel | to_json }},
-	timeFormat: {{ magicmirrro_time_format }},
-	units: "{{ magicmirror_units }}",
-	serverOnly:  true,
+    language: "{{ magicmirror_language }}",
+    logLevel: {{ magicmirror_loglevel | to_json }},
+    timeFormat: {{ magicmirror_time_format }},
+    units: "{{ magicmirror_units }}",
+    serverOnly:  true,
 
     modules: {{ magicmirror_module_config | to_json }}
 };

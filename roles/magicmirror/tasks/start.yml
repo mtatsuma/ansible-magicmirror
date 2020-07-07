@@ -1,8 +1,11 @@
 ---
 - name: make config directory
+  become: yes
   file:
     path: "{{ magicmirror_config_dir }}"
     state: directory
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
 
 - name: copy config file
   template:
@@ -16,7 +19,7 @@
     network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - "{{ magicmirror_config_dir }}/:/opt/magic_mirror/config:ro"
+      - "{{ magicmirror_config_dir }}/:/opt/magic_mirror/config"
     restart_policy: unless-stopped
-    restart: "{{ restart_container | default(False) }}"
-    recreate: "{{ recreate_container | default(False) }}"
+    restart: "{{ restart_container | default(False) | bool }}"
+    recreate: "{{ recreate_container | default(False) | bool }}"

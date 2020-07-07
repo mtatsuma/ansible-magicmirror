@@ -3,10 +3,10 @@ magicmirror_container_name: magicmirror
 magicmirror_config_dir: "/opt/configs/{{ magicmirror_container_name }}"
 
 magicmirror_listen_ip_address: 0.0.0.0
-magicmirror_listen_port: 8080
+magicmirror_listen_port: 8088
 magicmirror_basepath: "/"
 magicmirror_ip_allowlist: []
-magicmirror_enable_https: false
+magicmirror_enable_https: "false"
 magicmirror_https_key: ""
 magicmirror_https_cert: ""
 
