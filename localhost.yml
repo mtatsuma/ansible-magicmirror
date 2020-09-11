@@ -1,0 +1,8 @@
+magicmirror:
+  hosts:
+    localhost:
+  vars:
+    ansible_become: yes
+    ansible_connection: local
+    proxy_env: {}
+    magicmirror_version: v2.12.0
