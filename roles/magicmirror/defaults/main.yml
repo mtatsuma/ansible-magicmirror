@@ -1,6 +1,7 @@
 ---
 magicmirror_container_name: magicmirror
-magicmirror_config_dir: "/opt/configs/{{ magicmirror_container_name }}"
+magicmirror_config_dir: "/opt/docker/{{ magicmirror_container_name }}/configs"
+magicmirror_module_dir: "/opt/docker/{{ magicmirror_container_name }}/modules"
 
 magicmirror_listen_ip_address: 0.0.0.0
 magicmirror_listen_port: 8088
@@ -18,6 +19,10 @@ magicmirror_loglevel:
   - ERROR
 magicmirror_time_format: 24
 magicmirror_units: metric
+magicmirror_repo: https://github.com/MichMich/MagicMirror.git
+magicmirror_default_module_version: "{{ magicmirror_version }}"
+
+magicmirror_custom_modules:
 
 magicmirror_module_config:
   - module: clock

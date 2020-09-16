@@ -18,7 +18,7 @@ var config = {
     units: "{{ magicmirror_units }}",
     serverOnly:  true,
 
-    modules: {{ magicmirror_module_config | to_json }}
+    modules: {{ magicmirror_module_config | to_nice_json(indent=4) }}
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
