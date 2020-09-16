@@ -11,6 +11,28 @@
   template:
     src: config.js.j2
     dest: "{{ magicmirror_config_dir }}/config.js"
+  register: config
+
+- name: fetch default modules
+  git:
+    repo: "{{ magicmirror_repo }}"
+    dest: "{{ magicmirror_module_dir }}/MagicMirror"
+    version: "{{ magicmirror_default_module_version }}"
+
+- name: copy default modules
+  copy:
+    src: "{{ magicmirror_module_dir }}/MagicMirror/modules/default"
+    dest: "{{ magicmirror_module_dir }}"
+    remote_src: yes
+  register: default_modules
+
+- name: copy custom modules from Git repo
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ magicmirror_module_dir }}/{{ item.name }}"
+    version: "{{ item.version }}"
+  with_items: "{{ magicmirror_custom_modules }}"
+  register: custom_modules
 
 - name: run magicmirror container
   docker_container:
@@ -19,7 +41,11 @@
     network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - "{{ magicmirror_config_dir }}/:/opt/magic_mirror/config"
+      - "{{ magicmirror_config_dir }}:/opt/magic_mirror/config"
+      - "{{ magicmirror_module_dir }}:/opt/magic_mirror/modules"
     restart_policy: unless-stopped
-    restart: "{{ restart_container | default(False) | bool }}"
-    recreate: "{{ recreate_container | default(False) | bool }}"
+    restart: yes
+    recreate: yes
+  when: config is changed
+        or default_modules is changed
+        or custom_modules is changed
