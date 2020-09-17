@@ -62,6 +62,28 @@ proxy_env:
   https_proxy: xxxx
 ```
 
+## Using custom modules
+
+You can import your custom modules from Github repository by setting `magicmirror_custom_modules`.
+
+For example,
+```
+magicmirror_custom_modules:
+  - name: MMM-XXXX
+    repo: https://github.com/mtatsuma/MMM-XXXX.git
+    version: master
+```
+
+Configulation for the custom module is also set in `magicmirror_module_config`.
+```
+magicmirror_module_config:
+  - module: MMM-XXXX
+    position: top_right
+    config:
+      param1: value1
+      param2: value2
+```
+
 ## Deploy MagicMirror on Raspberry Pi
 
 You can run playbook `site.yml` to deploy MagicMirror.
