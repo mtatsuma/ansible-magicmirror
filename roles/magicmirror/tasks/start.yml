@@ -18,6 +18,7 @@
     repo: "{{ magicmirror_repo }}"
     dest: "{{ magicmirror_module_dir }}/MagicMirror"
     version: "{{ magicmirror_default_module_version }}"
+    force: "{{ repo_force_clone | default('no') }}"
 
 - name: copy default modules
   copy:
@@ -26,11 +27,12 @@
     remote_src: yes
   register: default_modules
 
-- name: copy custom modules from Git repo
+- name: fetch custom modules from Git repo
   git:
     repo: "{{ item.repo }}"
     dest: "{{ magicmirror_module_dir }}/{{ item.name }}"
     version: "{{ item.version }}"
+    force: "{{ repo_force_clone | default('no') }}"
   with_items: "{{ magicmirror_custom_modules }}"
   register: custom_modules
 
