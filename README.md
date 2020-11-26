@@ -84,6 +84,18 @@ magicmirror_module_config:
       param2: value2
 ```
 
+## Using custom CSS
+
+You can add custom CSS by setting `magicmirror_custom_css` variable.
+
+For example,
+```
+magicmirror_custom_css: >-
+  .module-content {
+    border: 1px solid;
+  }
+```
+
 ## Deploy MagicMirror on Raspberry Pi
 
 You can run playbook `site.yml` to deploy MagicMirror.
