@@ -2,6 +2,7 @@
 magicmirror_container_name: magicmirror
 magicmirror_config_dir: "/opt/docker/{{ magicmirror_container_name }}/configs"
 magicmirror_module_dir: "/opt/docker/{{ magicmirror_container_name }}/modules"
+magicmirror_custom_css_file: "/opt/docker/{{ magicmirror_container_name }}/css/custom.css"
 
 magicmirror_listen_ip_address: 0.0.0.0
 magicmirror_listen_port: 8088
@@ -23,6 +24,8 @@ magicmirror_repo: https://github.com/MichMich/MagicMirror.git
 magicmirror_default_module_version: "{{ magicmirror_version }}"
 
 magicmirror_custom_modules:
+
+magicmirror_custom_css: ""
 
 magicmirror_module_config:
   - module: clock

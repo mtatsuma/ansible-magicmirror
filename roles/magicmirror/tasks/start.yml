@@ -13,6 +13,20 @@
     dest: "{{ magicmirror_config_dir }}/config.js"
   register: config
 
+- name: make custom css directory
+  become: yes
+  file:
+    path: "{{ magicmirror_custom_css_file | dirname }}"
+    state: directory
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+
+- name: copy custom css file
+  template:
+    src: custom.css.j2
+    dest: "{{ magicmirror_custom_css_file }}"
+  register: custom_css
+
 - name: fetch default modules
   git:
     repo: "{{ magicmirror_repo }}"
@@ -43,11 +57,13 @@
     network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - "{{ magicmirror_config_dir }}:/opt/magic_mirror/config"
-      - "{{ magicmirror_module_dir }}:/opt/magic_mirror/modules"
+      - "{{ magicmirror_config_dir }}:/opt/magic_mirror/config:ro"
+      - "{{ magicmirror_module_dir }}:/opt/magic_mirror/modules:ro"
+      - "{{ magicmirror_custom_css_file }}:/opt/magic_mirror/css/custom.css:ro"
     restart_policy: unless-stopped
     restart: yes
     recreate: yes
   when: config is changed
+        or custom_css is changed
         or default_modules is changed
         or custom_modules is changed
