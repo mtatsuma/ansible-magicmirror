@@ -2,7 +2,7 @@
 magicmirror_container_name: magicmirror
 magicmirror_config_dir: "/opt/docker/{{ magicmirror_container_name }}/configs"
 magicmirror_module_dir: "/opt/docker/{{ magicmirror_container_name }}/modules"
-magicmirror_custom_css_file: "/opt/docker/{{ magicmirror_container_name }}/css/custom.css"
+magicmirror_custom_css_dir: "/opt/docker/{{ magicmirror_container_name }}/css"
 
 magicmirror_listen_ip_address: 0.0.0.0
 magicmirror_listen_port: 8088
