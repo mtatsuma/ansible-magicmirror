@@ -16,7 +16,7 @@
 - name: make custom css directory
   become: yes
   file:
-    path: "{{ magicmirror_custom_css_file | dirname }}"
+    path: "{{ magicmirror_custom_css_dir }}"
     state: directory
     owner: "{{ ansible_ssh_user }}"
     group: "{{ ansible_ssh_user }}"
@@ -24,7 +24,7 @@
 - name: copy custom css file
   template:
     src: custom.css.j2
-    dest: "{{ magicmirror_custom_css_file }}"
+    dest: "{{ magicmirror_custom_css_dir }}/custom.css"
   register: custom_css
 
 - name: fetch default modules
@@ -53,17 +53,24 @@
 - name: run magicmirror container
   docker_container:
     name: "{{ magicmirror_container_name }}"
-    image: "bastilimbach/docker-magicmirror:{{ magicmirror_version }}"
+    image: "karsten13/magicmirror:{{ magicmirror_version }}"
     network_mode: host
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - "{{ magicmirror_config_dir }}:/opt/magic_mirror/config:ro"
       - "{{ magicmirror_module_dir }}:/opt/magic_mirror/modules:ro"
-      - "{{ magicmirror_custom_css_file }}:/opt/magic_mirror/css/custom.css:ro"
+      - "{{ magicmirror_custom_css_dir }}/custom.css:/opt/magic_mirror/css/custom.css:ro"
     restart_policy: unless-stopped
+    command:
+      - npm
+      - run
+      - server
+    env:
+      MM_OVERRIDE_CSS: "false"
     restart: yes
     recreate: yes
   when: config is changed
-        or custom_css is changed
-        or default_modules is changed
-        or custom_modules is changed
+    or custom_css is changed
+    or default_modules is changed
+    or custom_modules is changed
+    or force_restart | default(False) | bool
