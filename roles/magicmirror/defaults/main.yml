@@ -20,7 +20,7 @@ magicmirror_loglevel:
   - ERROR
 magicmirror_time_format: 24
 magicmirror_units: metric
-magicmirror_repo: https://github.com/MichMich/MagicMirror.git
+magicmirror_repo: https://github.com/MagicMirrorOrg/MagicMirror.git
 magicmirror_default_module_version: "{{ magicmirror_version }}"
 
 magicmirror_custom_modules:
